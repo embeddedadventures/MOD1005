@@ -1,1 +1,1 @@
-# rtc_m41t81s
+# M41T81s MOD-1005 real-time clock Arduino library and demo sketch.
