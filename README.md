@@ -1,2 +1,2 @@
-# M41T81s MOD-1005 real-time clock Arduino library and demo sketch.
-I2C Protocol
+Arduino library and demo sketch for the <a href="http://www.embeddedadventures.com/real_time_clock_module.html">M41T81S Real Time Clock module</a> .
+
