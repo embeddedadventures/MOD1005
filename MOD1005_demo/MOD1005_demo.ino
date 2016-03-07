@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2015, Embedded Adventures
+Copyright (c) 2016, Embedded Adventures
 All rights reserved.
 
 Contact us at source [at] embeddedadventures.com
@@ -38,43 +38,42 @@ THE POSSIBILITY OF SUCH DAMAGE.
 // Written originally by Embedded Adventures
 
 #include <Wire.h>
-#include <MOD1005.h>
+#include <M41T81S.h>
 
 int sec, mins, hrs, dow, date, month, year, psec, previous;
+
+String months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+String days[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
 void setup() {
   Wire.begin();
   Serial.begin(115200);
   Serial.println("Embedded Adventures MOD-1005 real-time clock test sketch");
   Serial.println("Embedded Adventures (embeddedadventures.com)");
-  mod1005.init();
+  rtc.init();
 }
 
 void loop() {
   updateClock();
   print_serial();
-  delay(500);
+  delay(2000);
 }
 
 void updateClock() { 
-  psec = mod1005.getPartSeconds(); 
-  sec = mod1005.getSeconds();
-  mins = mod1005.getMinutes();
-  hrs = mod1005.getHours();
-  dow = mod1005.getDayOfWeek();
-  date = mod1005.getDate();
-  month = mod1005.getMonth();
-  year = mod1005.getYear();
+  psec = rtc.getPartSeconds(); 
+  sec = rtc.getSeconds();
+  mins = rtc.getMinutes();
+  hrs = rtc.getHours();
+  dow = rtc.getDayOfWeek();
+  date = rtc.getDate();
+  month = rtc.getMonth();
+  year = rtc.getYear();
 }
 
 void print_serial() {
-  Serial.println("Showing time - ");
-  Serial.print(hrs);
-  Serial.print(":");
-  Serial.print(mins);
-  Serial.print(":");
-  Serial.print(sec);
-  Serial.print(":");
-  Serial.println(psec);
+  String sequence = days[dow - 1] + ", " + months[month - 1] + " " + date + " 20" + year;
+  Serial.println(sequence);
+  sequence = (String)hrs + ":" + (String)mins + ":" + (String)sec + ":" + (String)psec + "\n";
+  Serial.println(sequence);
 }
 
